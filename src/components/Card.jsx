@@ -52,7 +52,7 @@ function Card({ size, day, weather, temperature, windSpeed, rainChance, rainMm }
         return null;
     }
 
-    const iconSize = size === 'regular' ? { width: 200, height: 175 } : { width: 100, height: 100 };
+    const iconSize = size === 'regular' ? { width: 175, height: 175 } : { width: 100, height: 100 };
     const textSize = size === 'regular' ? 'text-2xl' : '';
     const titleSize = size === 'regular' ? 'text-3xl' : 'font-bold';
     const containerClass = size === 'mini' ? 'items-center' : '';
@@ -60,7 +60,11 @@ function Card({ size, day, weather, temperature, windSpeed, rainChance, rainMm }
     return (
         <div className={`flex gap-4 ${containerClass}`}>
             <div className="flex">
-                <Icon name={icon} { ...iconSize } />
+                {text === "Céu Limpo" && size === "regular" ? (
+                    <Icon name={icon} {...iconSize} classString="animate-[spin_150s_linear_infinite]" />
+                ) : (
+                    <Icon name={icon} { ...iconSize }/>
+                )}
             </div>
             <div className="flex flex-col w-full justify-between">
                 <h3 className={`w-full text-end ${titleSize} text-tertiary`}>
@@ -68,7 +72,7 @@ function Card({ size, day, weather, temperature, windSpeed, rainChance, rainMm }
                 </h3>
                 <p className={`text-primary ${textSize}`}>
                     {text}<br />
-                    {temperature}º C<br />
+                    {temperature}<br />
                     {windSpeed} km/h<br />
                     {rainChance}% / {rainMm} mm
                 </p>

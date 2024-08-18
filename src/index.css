@@ -9,6 +9,10 @@
     /* border: 1px solid #FFF; */
 }
 
+p, h1, h2, h3 {
+  cursor: default;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
