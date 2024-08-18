@@ -1,106 +1,92 @@
-import { Sun, CloudSun, CloudFog, CloudDrizzle, CloudRain, CloudSnow, CloudHail, CloudLightning } from 'lucide-react'
+import React from 'react';
+import { Sun, CloudSun, CloudFog, CloudDrizzle, CloudRain, CloudSnow, CloudHail, CloudLightning } from 'lucide-react';
 
-/*
+const codeCombinations = [
+    [0],
+    [1, 2, 3],
+    [45, 48],
+    [51, 53, 55, 56, 57],
+    [61, 63, 65, 66, 67, 80, 81, 82],
+    [71, 73, 75, 77, 85, 86],
+    [95],
+    [96, 99]
+];
 
-0	         Clear sky                                             Sun
+const iconCombinations = [
+    <Sun key="0" />,
+    <CloudSun key="1" />,
+    <CloudFog key="2" />,
+    <CloudDrizzle key="3" />,
+    <CloudRain key="4" />,
+    <CloudSnow key="5" />,
+    <CloudLightning key="6" />,
+    <CloudHail key="7" />
+];
 
-1, 2, 3	     Mainly clear, partly cloudy, and overcast             CloudSun
+const textCombinations = [
+    "Céu Limpo",
+    "Ensolarado",
+    "Nublado",
+    "Chuva Leve",
+    "Chuva",
+    "Neve",
+    "Tempestade",
+    "Granizo"
+]
 
-45, 48	     Fog and depositing rime fog                           CloudFog
-
-51, 53, 55	 Drizzle: Light, moderate, and dense intensity         CloudDrizzle
-56, 57	     Freezing Drizzle: Light and dense intensity           CloudDrizzle
-
-61, 63, 65	 Rain: Slight, moderate and heavy intensity            CloudRain
-66, 67	     Freezing Rain: Light and heavy intensity              CloudRain
-80, 81, 82	 Rain showers: Slight, moderate, and violent           CloudRain
-
-71, 73, 75	 Snow fall: Slight, moderate, and heavy intensity      CloudSnow
-77	         Snow grains                                           CloudSnow
-85, 86	     Snow showers slight and heavy                         CloudSnow
-
-95 *	     Thunderstorm: Slight or moderate                      CloudLightning
-
-96, 99 *	 Thunderstorm with slight and heavy hail               CloudHail
-
-*/
-
-const iconData = [
-    {
-        codes: [0],
-        icon: (props) => <Sun {...props}/>
-    },
-    {
-        codes: [1,2,3],
-        icon: (props) => <CloudSun {...props}/>
-    },
-    {
-        codes: [45,48],
-        icon: (props) => <CloudFog {...props}/>
-    },
-    {
-        codes: [51,53,55,56,57],
-        icon: (props) => <CloudDrizzle {...props}/>
-    },
-    {
-        codes: [61,63,65,66,67,80,81,82],
-        icon: (props) => <CloudRain {...props}/>
-    },
-    {
-        codes: [71,73,75,77,85,86],
-        icon: (props) => <CloudSnow {...props}/>
-    },
-    {
-        codes: [95,"*"],
-        icon: (props) => <CloudLightning {...props}/>
-    },
-    {
-        codes: [96,99,"*"],
-        icon: (props) => <CloudHail {...props}/>
-    },
-    
+const colorCombinations = [
+    "secondary",
+    "secondary",
+    "tertiary",
+    "primary",
+    "primary",
+    "tertiary",
+    "primary",
+    "tertiary"
 ]
 
 function Card({ size, day, weather, temperature, windSpeed, rainChance, rainMm }) {
-    /*
-    
-    TODO: ASSOCIATE WEATHER CODE WITH LUCIDE ICONS
+    let Icon = null;
+    let text = null;
+    let color = null;
 
-    */
+    for (let index = 0; index < codeCombinations.length; index++) {
+        if (codeCombinations[index].includes(weather)) {
+            Icon = iconCombinations[index];
+            text = textCombinations[index];
+            color = colorCombinations[index];
+            break;
+        }
+    }
 
-    if (size === 'regular') return (
-        <div className="flex gap-4">
-            <Sun width={300} height={175} className="stroke-secondary flex" />
+    if (!Icon) {
+        console.error("No icon found for weather code:", weather);
+        return null;
+    }
+
+    const iconSize = size === 'regular' ? { width: 200, height: 175 } : { width: 100, height: 100 };
+    const textSize = size === 'regular' ? 'text-2xl' : '';
+    const titleSize = size === 'regular' ? 'text-3xl' : 'font-bold';
+    const containerClass = size === 'mini' ? 'items-center' : '';
+
+    return (
+        <div className={`flex gap-4 ${containerClass}`}>
+            <div className="flex">
+                {React.cloneElement(Icon, { ...iconSize, className: "stroke-" + color })}
+            </div>
             <div className="flex flex-col w-full justify-between">
-                <h3 className="w-full text-end text-3xl text-tertiary">
+                <h3 className={`w-full text-end ${titleSize} text-tertiary`}>
                     {day}
                 </h3>
-                <p className="text-2xl text-primary">
-                    {weather}<br />
+                <p className={`text-primary ${textSize}`}>
+                    {text}<br />
                     {temperature}º C<br />
                     {windSpeed} km/h<br />
                     {rainChance}% / {rainMm} mm
                 </p>
             </div>
         </div>
-    )
-
-    if (size === 'mini') return (
-        <div className="flex gap-4 items-center">
-            <Sun width={100} height={100} className="stroke-secondary" />
-            <div className="flex flex-col w-full justify-between">
-                <h3 className="w-full text-end font-bold text-tertiary">
-                    {day}
-                </h3>
-                <p className="text-primary">
-                    {weather}<br />
-                    {temperature}º C<br />
-                    {windSpeed} km/h<br />
-                    {rainChance}% / {rainMm} mm
-                </p>
-            </div>
-        </div>
-    )
+    );
 }
 
-export default Card
+export default Card;
