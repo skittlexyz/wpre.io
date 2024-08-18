@@ -15,7 +15,6 @@ function App() {
     const fetchData = async (lat, long) => {
       try {
         const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat.toFixed(2)}&longitude=${long.toFixed(2)}&current=temperature_2m&hourly=temperature_2m&daily=weather_code,temperature_2m_max,temperature_2m_min,rain_sum,precipitation_probability_max,wind_speed_10m_max&timezone=${tzlookup(lat,long).replace("/", "%2F")}`
-        console.log(url)
         const response = await fetch(url);
         const jsonData = await response.json();
         setWeatherData(jsonData);

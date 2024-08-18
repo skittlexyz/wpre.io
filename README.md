@@ -2,6 +2,7 @@
 	<img src="banner.png" width80%>
 </div>
 <hr>
+<br>
 
 `wpre.io` is a weather preview web application built in [Vite](https://vitejs.dev/) with [React](https://react.dev/), using the [OpenMeteo API](https://open-meteo.com/), [TailwindCSS](https://tailwindcss.com/), [Lucide](https://lucide.dev/) and the [tz-lookup](https://github.com/photostructure/tz-lookup) package.
 
