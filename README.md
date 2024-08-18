@@ -7,6 +7,13 @@
 `wpre.io` is a weather preview web application built in [Vite](https://vitejs.dev/) with [React](https://react.dev/), using the [OpenMeteo API](https://open-meteo.com/), [TailwindCSS](https://tailwindcss.com/), [Lucide](https://lucide.dev/) and the [tz-lookup](https://github.com/photostructure/tz-lookup) package.
 
 It works by asking for geolocalization permission, then with the data it requests some data from the API. 
+<hr>
+
+### TODO
+- Add hour checking and moon icon. 	<!--- Icon: 		https://lucide.dev/icons/moon -->
+- Add meta OpenGraph tags. 		<!--- Reference: 	https://ogp.me/ -->
+- Add mobile bar color customization. 	<!--- Documentation: 	https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta/name/theme-color -->
+- Add help button.
 
 <div align="center">
     <a href="https://github.com/skittlexyz/wpre.io" target="_blank"><img src="https://img.shields.io/static/v1?label=skittlexyz&amp;message=wpre.io&amp;color=4f72fc&amp;logo=github" alt="MichaelCurrin - badge-generator"/></a>
