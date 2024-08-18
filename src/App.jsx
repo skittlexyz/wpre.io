@@ -128,7 +128,7 @@ function App() {
             </div>
           )}
           </>
-        ) : ( <p className="text-tertiary text-2xl">{errorMessage}</p> )}
+        ) : ( <p className="text-tertiary text-2xl mx-2 text-center">{errorMessage}</p> )}
       </main>
       <section className="flex gap-4 mt-4 flex-wrap justify-center items-center sm:px-0 px-12">
         <a href="https://github.com/skittlexyz/wpre.io" target="_blank"><img src="https://img.shields.io/static/v1?label=skittlexyz&amp;message=wpre.io&amp;color=4f72fc&amp;logo=github" alt="MichaelCurrin - badge-generator"/></a>
