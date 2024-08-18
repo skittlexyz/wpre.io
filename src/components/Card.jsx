@@ -1,5 +1,6 @@
 import React from 'react';
 import { Sun, CloudSun, CloudFog, CloudDrizzle, CloudRain, CloudSnow, CloudHail, CloudLightning } from 'lucide-react';
+import Icon from './Icon';
 
 const codeCombinations = [
     [0],
@@ -13,14 +14,14 @@ const codeCombinations = [
 ];
 
 const iconCombinations = [
-    <Sun key="0" />,
-    <CloudSun key="1" />,
-    <CloudFog key="2" />,
-    <CloudDrizzle key="3" />,
-    <CloudRain key="4" />,
-    <CloudSnow key="5" />,
-    <CloudLightning key="6" />,
-    <CloudHail key="7" />
+    "Sun",
+    "CloudSun",
+    "CloudFog",
+    "CloudDrizzle",
+    "CloudRain",
+    "CloudSnow",
+    "CloudLightning",
+    "CloudHail"
 ];
 
 const textCombinations = [
@@ -34,27 +35,14 @@ const textCombinations = [
     "Granizo"
 ]
 
-const colorCombinations = [
-    "secondary",
-    "secondary",
-    "tertiary",
-    "primary",
-    "primary",
-    "tertiary",
-    "primary",
-    "tertiary"
-]
-
 function Card({ size, day, weather, temperature, windSpeed, rainChance, rainMm }) {
-    let Icon = null;
+    let icon = null;
     let text = null;
-    let color = null;
 
     for (let index = 0; index < codeCombinations.length; index++) {
         if (codeCombinations[index].includes(weather)) {
-            Icon = iconCombinations[index];
+            icon = iconCombinations[index];
             text = textCombinations[index];
-            color = colorCombinations[index];
             break;
         }
     }
@@ -72,7 +60,7 @@ function Card({ size, day, weather, temperature, windSpeed, rainChance, rainMm }
     return (
         <div className={`flex gap-4 ${containerClass}`}>
             <div className="flex">
-                {React.cloneElement(Icon, { ...iconSize, className: "stroke-" + color })}
+                <Icon name={icon} { ...iconSize } />
             </div>
             <div className="flex flex-col w-full justify-between">
                 <h3 className={`w-full text-end ${titleSize} text-tertiary`}>

@@ -1,5 +1,6 @@
 function getWeekDay(dateString) {
     const date = new Date(dateString);
+    date.setDate(date.getDate() + 1)
     if (isNaN(date.getTime())) throw new Error("Invalid date string.");
     const formatter = new Intl.DateTimeFormat('pt-BR', { weekday: 'long' });
     let day = formatter.format(date);

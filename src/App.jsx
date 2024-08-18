@@ -5,6 +5,10 @@ import getWeekDay from "./utils/getWeekDay";
 import getLocationString from './utils/getLocationString';
 import tzlookup from "tz-lookup";
 
+import Icon from "./components/Icon";
+
+import { Sun, CloudSun, CloudFog, CloudDrizzle, CloudRain, CloudSnow, CloudHail, CloudLightning } from 'lucide-react';
+
 function App() {
   const [weatherData, setWeatherData] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -14,6 +18,7 @@ function App() {
     const fetchData = async (lat, long) => {
       try {
         const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat.toFixed(2)}&longitude=${long.toFixed(2)}&daily=weather_code,temperature_2m_max,temperature_2m_min,rain_sum,precipitation_probability_max,wind_speed_10m_max&timezone=${tzlookup(lat,long).replace("/", "%2F")}`
+        console.log(url)
         const response = await fetch(url);
         const jsonData = await response.json();
         setWeatherData(jsonData);
@@ -46,6 +51,8 @@ function App() {
 
     getLocationAndFetchData();
   }, []);
+
+  const iconSize = { width: 200, height: 175 };
 
   return (
     <main className="bg-black w-screen mx-max h-screen flex flex-col justify-center items-center gap-4">
