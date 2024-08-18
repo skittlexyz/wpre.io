@@ -52,7 +52,7 @@ function App() {
   const iconSize = { width: 200, height: 175 };
 
   return (
-    <main className={`bg-black w-screen mx-max md:h-screen ${!weatherData ? "h-full" : ""} py-28 flex flex-col justify-center items-center gap-4`}>
+    <main className={`bg-black w-screen mx-max md:h-screen ${!weatherData ? "h-full" : ""} py-20 flex flex-col justify-center items-center gap-4`}>
       <header className="flex items-center gap-2">
         <Cloud size={120} strokeWidth={2} className="stroke-primary sm:w-full sm:h-full sm:opacity-100 sm:static w-0 h-0 opacity-0 absolute" />
         <h1 className="text-7xl text-secondary font-bold">
