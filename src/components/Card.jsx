@@ -60,8 +60,8 @@ function Card({ size, day, weather, temperature, windSpeed, rainChance, rainMm }
     return (
         <div className={`flex gap-4 ${containerClass}`}>
             <div className="flex">
-                {text === "Céu Limpo" ? (
-                    <Icon name={icon} {...iconSize} classString={`${size === "regular" ? "-ml-4 sm:ml-0" : ""}  animate-[spin_150s_linear_infinite]`} />
+                {text === "Céu Limpo" && size === "regular" ? (
+                    <Icon name={icon} {...iconSize} classString="-ml-4 sm:ml-0 animate-[spin_150s_linear_infinite]" />
                 ) : (
                     <Icon name={icon} { ...iconSize }/>
                 )}
