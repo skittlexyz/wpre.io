@@ -6,11 +6,23 @@
 
 * {
     font-family: "Inconsolata", monospace;
-    /* border: 1px solid #FFF; */
 }
 
 p, h1, h2, h3 {
   cursor: default;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #222;
+}
+
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb {
+  background: #555;
 }
 
 @media (prefers-color-scheme: dark) {
