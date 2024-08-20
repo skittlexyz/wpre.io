@@ -1,4 +1,4 @@
-import { Cloud, LoaderCircle } from "lucide-react";
+import { Cloud, LoaderCircle, CloudMoon, CloudMoonRain } from "lucide-react";
 import Card from "./components/Card";
 import { useState, useEffect } from "react";
 import getWeekDay from "./utils/getWeekDay";
@@ -10,11 +10,14 @@ function App() {
   const [weatherData, setWeatherData] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [locationName, setLocationName] = useState(null);
+  const [timezone, setTimezone] = useState(null);
 
   useEffect(() => {
     const fetchData = async (lat, long) => {
       try {
-        const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat.toFixed(2)}&longitude=${long.toFixed(2)}&current=temperature_2m&hourly=temperature_2m&daily=weather_code,temperature_2m_max,temperature_2m_min,rain_sum,precipitation_probability_max,wind_speed_10m_max&timezone=${tzlookup(lat,long).replace("/", "%2F")}`
+        const currentTimezone = tzlookup(lat, long);
+        setTimezone(currentTimezone);
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat.toFixed(2)}&longitude=${long.toFixed(2)}&current=temperature_2m&hourly=temperature_2m&daily=weather_code,temperature_2m_max,temperature_2m_min,rain_sum,precipitation_probability_max,wind_speed_10m_max&timezone=${currentTimezone.replace("/", "%2F")}`
         const response = await fetch(url);
         const jsonData = await response.json();
         setWeatherData(jsonData);
@@ -48,8 +51,6 @@ function App() {
     getLocationAndFetchData();
   }, []);
 
-  const iconSize = { width: 200, height: 175 };
-
   return (
     <main className={`bg-black w-screen mx-max md:h-screen ${!weatherData ? "h-full" : ""} py-20 flex flex-col justify-center items-center gap-4`}>
       <header className="flex items-center gap-2">
@@ -63,16 +64,16 @@ function App() {
           <>
           {weatherData ? (
             <>
-              <h2 className="text-3xl text-center text-wrap  sm:px-0 px-12">
+              <h2 className="text-3xl text-center text-primary text-wrap  sm:px-0 px-12">
                 {locationName || 'Location Unknown'}
               </h2>
               <section className="flex gap-4 justify-center items-center">
                 <Card
+                  timezone={timezone}
                   size={"regular"}
                   day={"Hoje"}
                   weather={weatherData.daily.weather_code[0]}
                   temperature={getCurrentTemperature(weatherData.hourly.time, weatherData.hourly.temperature_2m) + " ºC"}
-                  // temperature={((weatherData.daily.temperature_2m_max[0] + weatherData.daily.temperature_2m_min[0]) / 2).toFixed(1)}
                   windSpeed={weatherData.daily.wind_speed_10m_max[0]}
                   rainChance={weatherData.daily.precipitation_probability_max[0]}
                   rainMm={weatherData.daily.rain_sum[0]}
@@ -81,6 +82,7 @@ function App() {
               <section className="flex flex-col gap-8 justify-center items-center">
                 <div className="flex gap-8 md:flex-row flex-col">
                   <Card
+                    timezone={timezone}
                     size={"mini"}
                     day={getWeekDay(weatherData.daily.time[1])}
                     weather={weatherData.daily.weather_code[1]}
@@ -90,6 +92,7 @@ function App() {
                     rainMm={weatherData.daily.rain_sum[1]}
                   />
                   <Card
+                    timezone={timezone}
                     size={"mini"}
                     day={getWeekDay(weatherData.daily.time[2])}
                     weather={weatherData.daily.weather_code[2]}
@@ -101,6 +104,7 @@ function App() {
                 </div>
                 <div className="flex gap-8 md:flex-row flex-col">
                   <Card
+                    timezone={timezone}
                     size={"mini"}
                     day={getWeekDay(weatherData.daily.time[3])}
                     weather={weatherData.daily.weather_code[3]}
@@ -110,6 +114,7 @@ function App() {
                     rainMm={weatherData.daily.rain_sum[3]}
                   />
                   <Card
+                    timezone={timezone}
                     size={"mini"}
                     day={getWeekDay(weatherData.daily.time[4])}
                     weather={weatherData.daily.weather_code[4]}
@@ -133,6 +138,8 @@ function App() {
         <a href="https://github.com/skittlexyz/wpre.io" target="_blank"><img src="https://img.shields.io/static/v1?label=skittlexyz&amp;message=wpre.io&amp;color=4f72fc&amp;logo=github" alt="MichaelCurrin - badge-generator"/></a>
         <a href="https://www.linkedin.com/in/moisescorreagomes/" target="_blank"><img src="https://img.shields.io/static/v1?label=LinkedIn&amp;message=Mois%C3%A9s+Corr%C3%AAa+Gomes&amp;color=4f72fc&amp;logo=linkedin" alt="MichaelCurrin - badge-generator"/></a>
       </section>
+      <CloudMoon />
+      <CloudMoonRain />
     </main>
   );
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Sun, CloudSun, CloudFog, CloudDrizzle, CloudRain, CloudSnow, CloudHail, CloudLightning } from 'lucide-react';
 import Icon from './Icon';
 
 const codeCombinations = [
@@ -14,7 +13,7 @@ const codeCombinations = [
 ];
 
 const iconCombinations = [
-    "Sun",
+    "ClearSky",
     "CloudSun",
     "CloudFog",
     "CloudDrizzle",
@@ -35,7 +34,7 @@ const textCombinations = [
     "Granizo"
 ]
 
-function Card({ size, day, weather, temperature, windSpeed, rainChance, rainMm }) {
+function Card({ size, day, weather, temperature, windSpeed, rainChance, rainMm, timezone }) {
     let icon = null;
     let text = null;
 
@@ -61,16 +60,16 @@ function Card({ size, day, weather, temperature, windSpeed, rainChance, rainMm }
         <div className={`flex gap-4 ${containerClass}`}>
             <div className="flex">
                 {text === "Céu Limpo" && size === "regular" ? (
-                    <Icon name={icon} {...iconSize} classString="-ml-4 sm:ml-0 animate-[spin_150s_linear_infinite]" />
+                    <Icon spinning={true} timezone={timezone} name={icon} {...iconSize} classString="-ml-4 sm:ml-0" />
                 ) : (
-                    <Icon name={icon} { ...iconSize }/>
+                    <Icon spinning={false} timezone={timezone} name={icon} { ...iconSize }/>
                 )}
             </div>
             <div className="flex flex-col w-full justify-between">
                 <h3 className={`w-full text-end ${titleSize} text-tertiary`}>
                     {day}
                 </h3>
-                <p className={`text-primary ${textSize}`}>
+                <p className={`text-white ${textSize}`}>
                     {text}<br />
                     {temperature}<br />
                     {windSpeed} km/h<br />
