@@ -10,7 +10,7 @@ It works by asking for geolocalization permission, then with the data it request
 <hr>
 
 ### TODO
-- Add hour checking and moon icon. 	<!--- Icon: 		https://lucide.dev/icons/moon -->
+- Improve CSS for low height screens
 - Add meta OpenGraph tags. 		<!--- Reference: 	https://ogp.me/ -->
 - Add mobile bar color customization. 	<!--- Documentation: 	https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta/name/theme-color -->
 - Add help button.
