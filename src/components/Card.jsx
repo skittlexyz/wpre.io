@@ -14,7 +14,7 @@ const codeCombinations = [
 
 const iconCombinations = [
     "ClearSky",
-    "CloudSun",
+    "Cloudy",
     "CloudFog",
     "CloudDrizzle",
     "CloudRain",

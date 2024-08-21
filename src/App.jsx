@@ -138,8 +138,6 @@ function App() {
         <a href="https://github.com/skittlexyz/wpre.io" target="_blank"><img src="https://img.shields.io/static/v1?label=skittlexyz&amp;message=wpre.io&amp;color=4f72fc&amp;logo=github" alt="MichaelCurrin - badge-generator"/></a>
         <a href="https://www.linkedin.com/in/moisescorreagomes/" target="_blank"><img src="https://img.shields.io/static/v1?label=LinkedIn&amp;message=Mois%C3%A9s+Corr%C3%AAa+Gomes&amp;color=4f72fc&amp;logo=linkedin" alt="MichaelCurrin - badge-generator"/></a>
       </section>
-      <CloudMoon />
-      <CloudMoonRain />
     </main>
   );
 }
