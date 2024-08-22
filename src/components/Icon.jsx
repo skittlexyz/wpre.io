@@ -1,14 +1,11 @@
 function Icon({ name, width, height, classString, timezone, spinning }) {
+    let afternoon = parseInt((new Date()).toLocaleString([], { timeZone: timezone }).split(":")[0].split(",")[1]) >= 18
     if (!classString) classString = ""
     if (spinning) classString += " animate-[spin_150s_linear_infinite]"
     else spinning = ""
-    let period = "day";
-    if (parseInt((new Date()).toLocaleString([], { timeZone: timezone }).split(":")[0].split(",")[1]) > 18) {
-        period = "night";
-    }
     switch (name) {
         case "ClearSky":
-            if (period == "night") {
+            if (afternoon) {
                 return (
                     <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`lucide lucide-sun stroke-secondary ${classString.replace(" animate-[spin_150s_linear_infinite]", "")}`}>
                         <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
@@ -30,9 +27,9 @@ function Icon({ name, width, height, classString, timezone, spinning }) {
                 );
             }
         case "Cloudy":
-            if (period == "night") {
+            if (afternoon) {
                 return (
-                    <svg width={width} height={height} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`lucide lucide-cloud-drizzle stroke-secondary ${classString}`}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`lucide lucide-cloud-sun stroke-secondary ${classString}`}>
                         <path d="M10.188 8.5A6 6 0 0 1 16 4a1 1 0 0 0 6 6 6 6 0 0 1-3 5.197"></path>
                         <path className="stroke-tertiary" d="M13 16a3 3 0 1 1 0 6H7a5 5 0 1 1 4.9-6Z"></path>
                     </svg>
@@ -70,9 +67,9 @@ function Icon({ name, width, height, classString, timezone, spinning }) {
                 </svg>
             );
         case "CloudRain":
-            if (period == "night") {
+            if (afternoon) {
                 return (
-                    <svg width={width} height={height} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`lucide lucide-cloud-drizzle stroke-primary ${classString}`}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`lucide lucide-cloud-drizzle stroke-primary ${classString}`}>
                         <path className="stroke-secondary" d="M10.188 8.5A6 6 0 0 1 16 4a1 1 0 0 0 6 6 6 6 0 0 1-3 5.197"></path>
                         <path d="M11 20v2"></path>
                         <path className="stroke-tertiary" d="M3 20a5 5 0 1 1 8.9-4H13a3 3 0 0 1 2 5.24"></path>
