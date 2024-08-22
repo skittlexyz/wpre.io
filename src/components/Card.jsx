@@ -69,7 +69,7 @@ function Card({ size, day, weather, temperature, windSpeed, rainChance, rainMm, 
                 <h3 className={`w-full text-end ${titleSize} text-tertiary font-bold dark:font-normal`}>
                     {day}
                 </h3>
-                <p className={`text-white ${textSize} font-bold dark:font-normal dark:text-white text-black`}>
+                <p className={`${textSize} font-bold dark:font-normal dark:text-white text-black`}>
                     {text}<br />
                     {temperature}<br />
                     {windSpeed} km/h<br />
