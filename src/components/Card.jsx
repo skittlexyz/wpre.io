@@ -14,7 +14,7 @@ const codeCombinations = [
 
 const iconCombinations = [
     "ClearSky",
-    "CloudSun",
+    "Cloudy",
     "CloudFog",
     "CloudDrizzle",
     "CloudRain",
@@ -66,10 +66,10 @@ function Card({ size, day, weather, temperature, windSpeed, rainChance, rainMm, 
                 )}
             </div>
             <div className="flex flex-col w-full justify-between">
-                <h3 className={`w-full text-end ${titleSize} text-tertiary`}>
+                <h3 className={`w-full text-end ${titleSize} text-tertiary font-bold dark:font-normal`}>
                     {day}
                 </h3>
-                <p className={`text-white ${textSize}`}>
+                <p className={`text-white ${textSize} font-bold dark:font-normal dark:text-white text-black`}>
                     {text}<br />
                     {temperature}<br />
                     {windSpeed} km/h<br />

@@ -12,6 +12,28 @@ function App() {
   const [locationName, setLocationName] = useState(null);
   const [timezone, setTimezone] = useState(null);
 
+  const setMode = () => {
+    if(localStorage.getItem("light-mode") === null) {
+      localStorage.setItem("light-mode", JSON.stringify(false));
+    } else {
+      applyMode();
+    }
+  }
+
+  const switchMode = () => {
+    localStorage.setItem("light-mode", JSON.stringify(!JSON.parse(localStorage.getItem("light-mode"))));
+    applyMode();
+  }
+
+  const applyMode = () => {
+    let mode = JSON.parse(localStorage.getItem("light-mode")) ? "light" : "dark";
+    if (mode === "light") {
+      document.querySelector("html").classList.remove("dark");
+    } else if (mode === "dark") {
+      document.querySelector("html").classList.add("dark");
+    }
+  }
+
   useEffect(() => {
     const fetchData = async (lat, long) => {
       try {
@@ -48,14 +70,18 @@ function App() {
       }
     };
 
+    setMode();
     getLocationAndFetchData();
   }, []);
 
   return (
-    <main className={`bg-black w-screen mx-max md:h-screen ${!weatherData ? "h-full" : ""} py-20 flex flex-col justify-center items-center gap-4`}>
+    <main className={`default:my-20 w-screen mx-max md:h-screen ${!weatherData ? "h-full" : ""} py-20 flex flex-col justify-center items-center gap-4`}>
       <header className="flex items-center gap-2">
-        <Cloud size={120} strokeWidth={2} className="stroke-primary sm:w-full sm:h-full sm:opacity-100 sm:static w-0 h-0 opacity-0 absolute" />
-        <h1 className="text-7xl text-secondary font-bold">
+        <Cloud onClick={switchMode} size={120} strokeWidth={2} className="dark:stroke-primary stroke-secondary dark:hover:stroke-secondary hover:stroke-primary easy-out sm:duration-[175ms] duration-[0ms] cursor-pointer sm:w-full sm:h-full sm:opacity-100 sm:static w-0 h-0 opacity-0 absolute" />
+        <h1 className="w-0 h-0 -z-[1] sm:w-[initial] sm:h-[initial] sm:z-[1] absolute opacity-0 sm:static sm:opacity-100 text-7xl dark:text-secondary text-primary font-bold">
+          wpre.io
+        </h1>
+        <h1 onClick={switchMode} className="sm:w-0 sm:h-0 sm:-z-[1] sm:absolute sm:opacity-0 static opacity-100 text-7xl dark:text-secondary text-primary font-bold sm:cursor-default sm:hover:text-primary sm:dark:hover:text-secondary easy-out duration-[175ms] cursor-pointer hover:text-secondary dark:hover:text-primary">
           wpre.io
         </h1>
       </header>
@@ -64,7 +90,7 @@ function App() {
           <>
           {weatherData ? (
             <>
-              <h2 className="text-3xl text-center text-primary text-wrap  sm:px-0 px-12">
+              <h2 className="text-3xl text-center text-primary text-wrap sm:px-0 px-12 dark:font-normal font-bold">
                 {locationName || 'Location Unknown'}
               </h2>
               <section className="flex gap-4 justify-center items-center">
@@ -138,8 +164,6 @@ function App() {
         <a href="https://github.com/skittlexyz/wpre.io" target="_blank"><img src="https://img.shields.io/static/v1?label=skittlexyz&amp;message=wpre.io&amp;color=4f72fc&amp;logo=github" alt="MichaelCurrin - badge-generator"/></a>
         <a href="https://www.linkedin.com/in/moisescorreagomes/" target="_blank"><img src="https://img.shields.io/static/v1?label=LinkedIn&amp;message=Mois%C3%A9s+Corr%C3%AAa+Gomes&amp;color=4f72fc&amp;logo=linkedin" alt="MichaelCurrin - badge-generator"/></a>
       </section>
-      <CloudMoon />
-      <CloudMoonRain />
     </main>
   );
 }

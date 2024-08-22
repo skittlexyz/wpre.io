@@ -1,18 +1,19 @@
 function Icon({ name, width, height, classString, timezone, spinning }) {
+    let afternoon = parseInt((new Date()).toLocaleString([], { timeZone: timezone }).split(":")[0].split(",")[1]) >= 18
     if (!classString) classString = ""
-    if (!spinning) spinning = "animate-[spin_150s_linear_infinite]"
+    if (spinning) classString += " animate-[spin_150s_linear_infinite]"
     else spinning = ""
     switch (name) {
         case "ClearSky":
-            if (parseInt((new Date()).toLocaleString([], { timeZone: timezone }).split(":")[0].split(",")[1]) > 1) {
+            if (afternoon) {
                 return (
-                    <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`lucide lucide-sun stroke-secondary ${classString} ${spinning}`}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`lucide lucide-sun stroke-secondary ${classString.replace(" animate-[spin_150s_linear_infinite]", "")}`}>
                         <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
                     </svg>
                 );
             } else {
                 return (
-                    <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`lucide lucide-sun stroke-secondary ${classString} ${spinning}`}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`lucide lucide-sun stroke-secondary ${classString}`}>
                         <circle cx="12" cy="12" r="4"></circle>
                         <path d="M12 2v2"></path>
                         <path d="M12 20v2"></path>
@@ -25,17 +26,26 @@ function Icon({ name, width, height, classString, timezone, spinning }) {
                     </svg>
                 );
             }
-        case "CloudSun":
-            return (
-                <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`lucide lucide-cloud-sun stroke-secondary ${classString}`}>
-                    <path d="M12 2v2"></path>
-                    <path d="m4.93 4.93 1.41 1.41"></path>
-                    <path d="M20 12h2"></path>
-                    <path d="m19.07 4.93-1.41 1.41"></path>
-                    <path d="M15.947 12.65a4 4 0 0 0-5.925-4.128"></path>
-                    <path className="stroke-tertiary" d="M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z"></path>
-                </svg>
-            );
+        case "Cloudy":
+            if (afternoon) {
+                return (
+                    <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`lucide lucide-cloud-sun stroke-secondary ${classString}`}>
+                        <path d="M10.188 8.5A6 6 0 0 1 16 4a1 1 0 0 0 6 6 6 6 0 0 1-3 5.197"></path>
+                        <path className="stroke-tertiary" d="M13 16a3 3 0 1 1 0 6H7a5 5 0 1 1 4.9-6Z"></path>
+                    </svg>
+                )
+            } else {
+                return (
+                    <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`lucide lucide-cloud-sun stroke-secondary ${classString}`}>
+                        <path d="M12 2v2"></path>
+                        <path d="m4.93 4.93 1.41 1.41"></path>
+                        <path d="M20 12h2"></path>
+                        <path d="m19.07 4.93-1.41 1.41"></path>
+                        <path d="M15.947 12.65a4 4 0 0 0-5.925-4.128"></path>
+                        <path className="stroke-tertiary" d="M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z"></path>
+                    </svg>
+                );
+            }
         case "CloudFog":
             return (
                 <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`lucide lucide-cloud-fog stroke-tertiary ${classString}`}>
@@ -57,14 +67,25 @@ function Icon({ name, width, height, classString, timezone, spinning }) {
                 </svg>
             );
         case "CloudRain":
-            return (
-                <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`lucide lucide-cloud-rain stroke-primary ${classString}`}>
-                    <path className="stroke-tertiary" d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"></path>
-                    <path d="M16 14v6"></path>
-                    <path d="M8 14v6"></path>
-                    <path d="M12 16v6"></path>
-                </svg>
-            );
+            if (afternoon) {
+                return (
+                    <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`lucide lucide-cloud-drizzle stroke-primary ${classString}`}>
+                        <path className="stroke-secondary" d="M10.188 8.5A6 6 0 0 1 16 4a1 1 0 0 0 6 6 6 6 0 0 1-3 5.197"></path>
+                        <path d="M11 20v2"></path>
+                        <path className="stroke-tertiary" d="M3 20a5 5 0 1 1 8.9-4H13a3 3 0 0 1 2 5.24"></path>
+                        <path d="M7 19v2"></path>
+                    </svg>
+                )
+            } else {
+                return (
+                    <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`lucide lucide-cloud-rain stroke-primary ${classString}`}>
+                        <path className="stroke-tertiary" d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"></path>
+                        <path d="M16 14v6"></path>
+                        <path d="M8 14v6"></path>
+                        <path d="M12 16v6"></path>
+                    </svg>
+                );
+            }
         case "CloudSnow":
             return (
                 <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`lucide lucide-cloud-snow stroke-tertiary ${classString}`}>
